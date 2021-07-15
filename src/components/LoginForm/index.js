@@ -28,7 +28,7 @@ class LoginForm extends Component {
 
     if (response.ok) {
       const {history} = this.props
-      history.push('/')
+      history.replace('/')
     } else {
       this.setState({error: true, errorMsg: data.error_msg})
     }

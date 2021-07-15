@@ -97,6 +97,14 @@
     display: none;
   }
 
+  ul {
+    padding: 0px;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
   .nav-link-section {
     width: 55%;
     display: flex;
@@ -108,6 +116,7 @@
   .nav-link {
     height: 30px;
     margin: 5px;
+    text-decoration: none;
   }
 
   .logout-button {

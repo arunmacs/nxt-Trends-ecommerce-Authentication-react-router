@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import './index.css'
 
 class Header extends Component {
@@ -46,10 +47,17 @@ class Header extends Component {
             className="nav-link"
           />
         </div>
-        <div className="nav-link-section">
-          <p className="nav-link">Home</p>
-          <p className="nav-link">Products</p>
-          <p className="nav-link">Cart</p>
+        <ul className="nav-link-section">
+          <Link to="/" className="nav-link">
+            <li>Home</li>
+          </Link>
+          <Link to="/products" className="nav-link">
+            <li>Products</li>
+          </Link>
+          <Link to="/cart" className="nav-link">
+            <li>Cart</li>
+          </Link>
+
           <button
             type="button"
             onClick={this.onClickLogOut}
@@ -57,7 +65,7 @@ class Header extends Component {
           >
             Logout
           </button>
-        </div>
+        </ul>
       </nav>
     )
   }

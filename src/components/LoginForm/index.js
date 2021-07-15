@@ -1,8 +1,16 @@
 import {Component} from 'react'
+import Loader from 'react-loader-spinner'
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import './index.css'
 
 class LoginForm extends Component {
-  state = {username: '', password: '', error: false, errorMsg: ''}
+  state = {
+    username: '',
+    password: '',
+    stillLoading: null,
+    error: false,
+    errorMsg: '',
+  }
 
   changeStateUserName = event => {
     this.setState({username: event.target.value, error: false})
@@ -12,8 +20,18 @@ class LoginForm extends Component {
     this.setState({password: event.target.value, error: false})
   }
 
+  validateInputs = () => {
+    const {username, password} = this.state
+
+    if (username === '' || password === '') {
+      this.setState({error: true, errorMsg: 'Input Fields Should not be Empty'})
+    }
+  }
+
   onClickSubmitForm = async event => {
+    this.validateInputs()
     event.preventDefault()
+    this.setState({stillLoading: true})
     const {username, password} = this.state
     const userDetails = {username, password}
 
@@ -28,9 +46,11 @@ class LoginForm extends Component {
 
     if (response.ok) {
       const {history} = this.props
+      this.setState({stillLoading: false})
       history.replace('/')
     } else {
       this.setState({error: true, errorMsg: data.error_msg})
+      this.setState({stillLoading: false})
     }
   }
 
@@ -84,8 +104,20 @@ class LoginForm extends Component {
     )
   }
 
+  renderLoaderAnimation = () => (
+    <div className="loader">
+      <Loader
+        type="Oval"
+        color="#00bfff"
+        className="loader"
+        height={40}
+        width={40}
+      />
+    </div>
+  )
+
   render() {
-    const {error} = this.state
+    const {error, stillLoading} = this.state
 
     return (
       <div className="login-form-container">
@@ -110,6 +142,7 @@ class LoginForm extends Component {
           <button type="submit" className="login-button">
             Login
           </button>
+          {stillLoading ? this.renderLoaderAnimation() : ''}
           {error ? this.renderErrorMsg() : ''}
         </form>
       </div>

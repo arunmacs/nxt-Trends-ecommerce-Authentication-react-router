@@ -1,5 +1,7 @@
 import {Component} from 'react'
 import {Link} from 'react-router-dom'
+import Loader from 'react-loader-spinner'
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import './index.css'
 
 class Header extends Component {
@@ -8,6 +10,18 @@ class Header extends Component {
     const {history} = props
     history.replace('/login')
   }
+
+  renderLoaderAnimation = () => (
+    <div className="loader">
+      <Loader
+        type="Oval"
+        color="#00bfff"
+        className="loader"
+        height={30}
+        width={30}
+      />
+    </div>
+  )
 
   render() {
     return (
